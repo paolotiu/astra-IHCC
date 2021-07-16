@@ -30,7 +30,7 @@ const SuccessPage = () => {
             {new Date(date).toDateString()}
           </Typography>
         </p>
-        <Link href="/home">
+        <Link href="/book">
           <Button variant="contained" color="primary" style={{ color: 'white' }}>
             Return to Home
           </Button>
