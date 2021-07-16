@@ -12,10 +12,10 @@ import {
   Button,
 } from '@material-ui/core';
 import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
-import { wastesAtom } from '@utils/jotai';
+import { dateAtom, wastesAtom } from '@utils/jotai';
 import { useAtom } from 'jotai';
-
-import React, { useState } from 'react';
+import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
 import { wastes } from './wastes';
 
 const useStyles = makeStyles({
@@ -93,12 +93,16 @@ const dates = [new Date('July 17, 2021 '), new Date('July 18, 2021 '), new Date(
 const Booking = () => {
   const classes = useStyles();
   const [selectValue] = useState('Manila');
-  const [value, setValue] = useState(dates[0].getTime());
-  const [, setWastes] = useAtom(wastesAtom);
+  const [value, setValue] = useAtom(dateAtom);
+  const [w, setWastes] = useAtom(wastesAtom);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(Number(event.currentTarget.value));
   };
+
+  useEffect(() => {
+    setWastes([]);
+  }, [setWastes]);
   return (
     <Box paddingX={2} paddingTop={4}>
       <div className={classes.container}>
@@ -172,14 +176,17 @@ const Booking = () => {
           </div>
         </FormGroup>
       </Box>
-      <Button
-        variant="contained"
-        color="primary"
-        style={{ color: 'white', marginTop: '2rem' }}
-        fullWidth
-      >
-        Add to Bin
-      </Button>
+      <Link href="quantity">
+        <Button
+          disabled={w.length === 0}
+          variant="contained"
+          color="primary"
+          style={{ color: 'white', marginTop: '2rem' }}
+          fullWidth
+        >
+          Add to Bin
+        </Button>
+      </Link>
     </Box>
   );
 };
