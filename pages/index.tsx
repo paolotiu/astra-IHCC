@@ -28,9 +28,11 @@ const IndexPage = () => {
           <Typography variant="h6">Are you a buyer or a seller?</Typography>
         </Box>
         <div className={classes.buttonContainer}>
-          <Button variant="contained" color="primary">
-            I am a Buyer
-          </Button>
+          <Link href="/buyer-home">
+            <Button variant="contained" color="primary">
+              I am a Buyer
+            </Button>
+          </Link>
 
           <Link href="/book">
             <Button variant="contained" color="primary">
