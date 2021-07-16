@@ -12,6 +12,8 @@ import {
   Button,
 } from '@material-ui/core';
 import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
+import { wastesAtom } from '@utils/jotai';
+import { useAtom } from 'jotai';
 
 import React, { useState } from 'react';
 import { wastes } from './wastes';
@@ -92,6 +94,7 @@ const Booking = () => {
   const classes = useStyles();
   const [selectValue] = useState('Manila');
   const [value, setValue] = useState(dates[0].getTime());
+  const [, setWastes] = useAtom(wastesAtom);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(Number(event.currentTarget.value));
@@ -146,7 +149,22 @@ const Booking = () => {
                   }}
                 >
                   <div className={classes.wasteDetails}>
-                    <FormControlLabel control={<Checkbox color="primary" />} label={x.label} />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          color="primary"
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setWastes((prev) => [...prev, { label: x.label }]);
+                              return;
+                            }
+
+                            setWastes((prev) => prev.filter((y) => y.label !== x.label));
+                          }}
+                        />
+                      }
+                      label={x.label}
+                    />
                   </div>
                 </div>
               );
