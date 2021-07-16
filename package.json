@@ -8,6 +8,9 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.1",
+    "@material-ui/styles": "^4.11.4",
+    "axios": "^0.21.1",
     "eslint-config-prettier": "^8.2.0",
     "next": "latest",
     "react": "^17.0.1",
@@ -20,6 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "eslint": "^7.24.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-tiu": "^1.0.2",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.3",
