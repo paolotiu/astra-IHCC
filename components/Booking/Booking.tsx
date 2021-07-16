@@ -26,6 +26,9 @@ const useStyles = makeStyles({
   select: {
     width: '100%',
     marginBottom: '-4rem',
+    '& .MuiSelect-select:focus': {
+      backgroundColor: '#fff',
+    },
   },
   container: {
     display: 'grid',
