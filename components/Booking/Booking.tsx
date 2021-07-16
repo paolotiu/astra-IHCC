@@ -25,10 +25,12 @@ const useStyles = makeStyles({
   },
   select: {
     width: '100%',
+    marginBottom: '-4rem',
   },
   container: {
     display: 'grid',
-    gap: '1rem',
+    backgroundColor: '#6DBD76',
+    padding: '2rem 1rem',
   },
   grid: {
     display: 'grid',
@@ -104,90 +106,95 @@ const Booking = () => {
     setWastes([]);
   }, [setWastes]);
   return (
-    <Box paddingX={2} paddingTop={4}>
+    <>
       <div className={classes.container}>
-        <Typography variant="h4" className={classes.heading}>
-          Enter your location
+        <Typography
+          variant="h4"
+          className={classes.heading}
+          style={{ color: 'white', fontSize: '36px' }}
+        >
+          Sell
         </Typography>
         <Select className={classes.select} input={<BootstrapInput />} value={selectValue}>
           <MenuItem value="Manila">Manila, Metro Manila </MenuItem>
         </Select>
       </div>
+      <Box paddingX={2} paddingTop={4}>
+        <Box paddingTop={6}>
+          <Typography variant="h4" className={classes.heading}>
+            Available Dates
+          </Typography>
+          <RadioGroup onChange={handleChange} value={value}>
+            {dates.map((date, i) => (
+              <FormControlLabel
+                // eslint-disable-next-line react/no-array-index-key
+                key={i}
+                control={<Radio color="primary" />}
+                value={date.getTime()}
+                label={date.toLocaleString()}
+              />
+            ))}
+          </RadioGroup>
+        </Box>
 
-      <Box paddingTop={6}>
-        <Typography variant="h4" className={classes.heading}>
-          Available Dates
-        </Typography>
-        <RadioGroup onChange={handleChange} value={value}>
-          {dates.map((date, i) => (
-            <FormControlLabel
-              // eslint-disable-next-line react/no-array-index-key
-              key={i}
-              control={<Radio color="primary" />}
-              value={date.getTime()}
-              label={date.toLocaleString()}
-            />
-          ))}
-        </RadioGroup>
-      </Box>
+        <Box paddingTop={6}>
+          <Typography variant="h4" className={classes.heading}>
+            Types of wastes
+          </Typography>
 
-      <Box paddingTop={6}>
-        <Typography variant="h4" className={classes.heading}>
-          Types of wastes
-        </Typography>
+          <FormGroup>
+            <div className={classes.grid}>
+              {wastes.map((x) => {
+                return (
+                  <div
+                    style={{
+                      backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.05)), url(${x.src})`,
+                      height: '180px',
+                      width: '100%',
+                      backgroundSize: 'cover',
+                      backgroundOrigin: '',
+                      backgroundPosition: 'center center',
+                      display: 'flex',
+                      borderRadius: '3px',
+                    }}
+                  >
+                    <div className={classes.wasteDetails}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            color="primary"
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setWastes((prev) => [...prev, { label: x.label }]);
+                                return;
+                              }
 
-        <FormGroup>
-          <div className={classes.grid}>
-            {wastes.map((x) => {
-              return (
-                <div
-                  style={{
-                    backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.05)), url(${x.src})`,
-                    height: '180px',
-                    width: '100%',
-                    backgroundSize: 'cover',
-                    backgroundOrigin: '',
-                    backgroundPosition: 'center center',
-                    display: 'flex',
-                    borderRadius: '3px',
-                  }}
-                >
-                  <div className={classes.wasteDetails}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          color="primary"
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              setWastes((prev) => [...prev, { label: x.label }]);
-                              return;
-                            }
-
-                            setWastes((prev) => prev.filter((y) => y.label !== x.label));
-                          }}
-                        />
-                      }
-                      label={x.label}
-                    />
+                              setWastes((prev) => prev.filter((y) => y.label !== x.label));
+                            }}
+                          />
+                        }
+                        label={x.label}
+                      />
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        </FormGroup>
+                );
+              })}
+            </div>
+          </FormGroup>
+        </Box>
+        <Link href="quantity">
+          <Button
+            disabled={w.length === 0}
+            variant="contained"
+            color="primary"
+            style={{ color: 'white', marginTop: '2rem' }}
+            fullWidth
+          >
+            Add to Bin
+          </Button>
+        </Link>
       </Box>
-      <Link href="quantity">
-        <Button
-          disabled={w.length === 0}
-          variant="contained"
-          color="primary"
-          style={{ color: 'white', marginTop: '2rem' }}
-          fullWidth
-        >
-          Add to Bin
-        </Button>
-      </Link>
-    </Box>
+    </>
   );
 };
 
