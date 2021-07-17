@@ -117,9 +117,15 @@ const QuantityPage = () => {
                     style={{ maxWidth: '50px' }}
                     onChange={(e) => {
                       const num = Number(e.currentTarget.value);
+
+                      if (Number.isNaN(num) || num < 0) {
+                        e.target.value = '0';
+                      }
+
+                      const num2 = Number(e.currentTarget.value);
                       setQuantites((prev) => ({
                         ...prev,
-                        [waste.label]: Number.isNaN(num) ? 0 : num,
+                        [waste.label]: Number.isNaN(num2) ? 0 : num2,
                       }));
                     }}
                   />

@@ -37,7 +37,7 @@ const useStyles = makeStyles({
   },
   grid: {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr) )',
     paddingTop: '1rem',
     gap: '1rem',
   },
